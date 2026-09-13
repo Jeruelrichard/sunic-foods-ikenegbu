@@ -12,7 +12,7 @@ document.documentElement.style.setProperty('--accent',restaurant.accent);documen
 text('[data-business]',restaurant.short);text('[data-headline]',restaurant.headline);text('[data-intro]',restaurant.intro);text('[data-caption]',restaurant.caption);text('[data-menu-intro]',restaurant.menuIntro);text('[data-experience-title]',restaurant.experienceTitle);text('[data-experience-copy]',restaurant.experienceCopy);text('[data-footer]',restaurant.footer);text('[data-rating]',restaurant.rating);text('[data-reviews]',restaurant.reviews);text('[data-location]',restaurant.location);text('[data-hours]',restaurant.hours);text('[data-phone-display]',restaurant.display);text('[data-year]',new Date().getFullYear());
 document.querySelectorAll('[data-phone]').forEach((a)=>a.href=`tel:${restaurant.phone}`);document.querySelectorAll('[data-directions]').forEach((a)=>{a.href=restaurant.directions;a.target='_blank';a.rel='noopener noreferrer'});document.querySelectorAll('[data-whatsapp]').forEach((a)=>{a.href=`https://wa.me/${digits}?text=${encodeURIComponent(opening)}`;a.target='_blank';a.rel='noopener noreferrer'});
 document.querySelector('[data-cards]').innerHTML=restaurant.cards.map((card,index)=>`<article class="card" data-number="0${index+1}"><i class="fa-solid ${card[0]}"></i><div><h3>${card[1]}</h3><p>${card[2]}</p></div></article>`).join('');
-const gallery=document.querySelector('[data-gallery]');
+const gallery=document.querySelector('.photo-grid[data-gallery]');
 const gallerySection=document.querySelector('[data-gallery-section]');
 const galleryFiles=(document.body.dataset.gallery || '').split('|').filter(Boolean).slice(0, 6);
 if (gallery && gallerySection && galleryFiles.length) {
@@ -21,4 +21,5 @@ if (gallery && gallerySection && galleryFiles.length) {
 }
 const toggle=document.querySelector('[data-toggle]'),nav=document.querySelector('[data-nav]'),closeNav=()=>{document.body.classList.remove('nav-open');toggle.setAttribute('aria-expanded','false');toggle.innerHTML='<span class="sr-only">Open navigation</span><i class="fa-solid fa-bars"></i>'};toggle.addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');toggle.setAttribute('aria-expanded',open);toggle.innerHTML=open?'<span class="sr-only">Close navigation</span><i class="fa-solid fa-xmark"></i>':'<span class="sr-only">Open navigation</span><i class="fa-solid fa-bars"></i>'});nav.querySelectorAll('a').forEach((a)=>a.addEventListener('click',closeNav));
 document.querySelector('[data-form]').addEventListener('submit',(event)=>{event.preventDefault();const form=new FormData(event.currentTarget),message=`Hello ${restaurant.short}, my name is ${form.get('name')}.%0A%0APhone: ${form.get('phone')}%0A%0AI would like to ask about:%0A${form.get('message')}`;document.querySelector('[data-status]').textContent='Opening WhatsApp…';window.open(`https://wa.me/${digits}?text=${message}`,'_blank','noopener')});
+
 
